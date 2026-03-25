@@ -1,0 +1,128 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a2e;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.calculator {
+  background: #16213e;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  width: 320px;
+}
+
+/* Display */
+.display {
+  background: #0f3460;
+  border-radius: 16px;
+  padding: 20px 24px 16px;
+  margin-bottom: 20px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.display__expression {
+  font-size: 14px;
+  color: #a0aec0;
+  min-height: 20px;
+  word-break: break-all;
+  text-align: right;
+}
+
+.display__result {
+  font-size: 42px;
+  font-weight: 300;
+  color: #ffffff;
+  word-break: break-all;
+  text-align: right;
+  line-height: 1.1;
+  transition: font-size 0.1s;
+}
+
+.display__result.small {
+  font-size: 28px;
+}
+
+/* Buttons grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.btn {
+  background: #1a3a5c;
+  border: none;
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 400;
+  height: 64px;
+  cursor: pointer;
+  transition: background 0.1s, transform 0.08s;
+  user-select: none;
+}
+
+.btn:hover {
+  background: #1e4976;
+}
+
+.btn:active {
+  transform: scale(0.93);
+  background: #245a8a;
+}
+
+.btn--wide {
+  grid-column: span 2;
+}
+
+.btn--secondary {
+  background: #2d4a6e;
+  color: #a0d8ef;
+}
+
+.btn--secondary:hover {
+  background: #365a82;
+}
+
+.btn--operator {
+  background: #e07b39;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.btn--operator:hover {
+  background: #f08c46;
+}
+
+.btn--operator.active {
+  background: #ffffff;
+  color: #e07b39;
+}
+
+.btn--equals {
+  background: #e07b39;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.btn--equals:hover {
+  background: #f08c46;
+}
