@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="app">
     <div class="calculator">
       <div class="display">
         <span class="display__expression" id="expression"></span>
@@ -39,6 +40,18 @@
         <button class="btn btn--equals" data-action="equals">=</button>
       </div>
     </div>
+
+    <div class="history">
+      <div class="history__header">
+        <span>Historial</span>
+        <button class="history__clear" id="clearHistory">Borrar</button>
+      </div>
+      <ul class="history__list" id="historyList">
+        <li class="history__empty">Sin operaciones aún</li>
+      </ul>
+    </div>
+
+    </div><!-- /.app -->
 
     <script type="module" src="main.js"></script>
   </body>

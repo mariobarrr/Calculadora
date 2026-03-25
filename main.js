@@ -1,5 +1,7 @@
 const resultEl = document.getElementById('result');
 const expressionEl = document.getElementById('expression');
+const historyList = document.getElementById('historyList');
+const clearHistoryBtn = document.getElementById('clearHistory');
 
 const state = {
   current: '0',
@@ -70,12 +72,15 @@ function calculate() {
       break;
   }
 
-  expressionEl.textContent = `${state.previous} ${symbols[state.operator]} ${state.current} =`;
+  const exprText = `${state.previous} ${symbols[state.operator]} ${state.current}`;
+  expressionEl.textContent = `${exprText} =`;
 
   state.current =
     result === 'Error'
       ? 'Error'
       : parseFloat(result.toFixed(10)).toString();
+
+  addToHistory(exprText, state.current);
   state.previous = null;
   state.operator = null;
   state.justEvaluated = true;
@@ -113,6 +118,28 @@ function percent() {
   state.current = (value / 100).toString();
   updateDisplay();
 }
+
+function addToHistory(expression, result) {
+  const empty = historyList.querySelector('.history__empty');
+  if (empty) empty.remove();
+
+  const li = document.createElement('li');
+  li.className = 'history__item';
+  li.innerHTML = `
+    <div class="history__item-expr">${expression}</div>
+    <div class="history__item-result">${result}</div>
+  `;
+  li.addEventListener('click', () => {
+    state.current = result;
+    state.justEvaluated = true;
+    updateDisplay();
+  });
+  historyList.appendChild(li);
+}
+
+clearHistoryBtn.addEventListener('click', () => {
+  historyList.innerHTML = '<li class="history__empty">Sin operaciones aún</li>';
+});
 
 // Button clicks
 document.querySelector('.buttons').addEventListener('click', (e) => {
