@@ -66,6 +66,11 @@ body {
   font-size: 28px;
 }
 
+.display__result.error {
+  font-size: 16px;
+  color: #ff6b6b;
+}
+
 /* Buttons grid */
 .buttons {
   display: grid;

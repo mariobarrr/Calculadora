@@ -12,7 +12,9 @@ const state = {
 
 function updateDisplay() {
   resultEl.textContent = state.current;
-  resultEl.classList.toggle('small', state.current.length > 9);
+  const isError = state.current.startsWith('Error');
+  resultEl.classList.toggle('error', isError);
+  resultEl.classList.toggle('small', !isError && state.current.length > 9);
 }
 
 function inputNumber(value) {
@@ -68,17 +70,15 @@ function calculate() {
     case '-': result = a - b; break;
     case '*': result = a * b; break;
     case '/':
-      result = b === 0 ? 'Error' : a / b;
+      result = b === 0 ? 'Error: División por cero' : a / b;
       break;
   }
 
   const exprText = `${state.previous} ${symbols[state.operator]} ${state.current}`;
   expressionEl.textContent = `${exprText} =`;
 
-  state.current =
-    result === 'Error'
-      ? 'Error'
-      : parseFloat(result.toFixed(10)).toString();
+  const isError = typeof result === 'string';
+  state.current = isError ? result : parseFloat(result.toFixed(10)).toString();
 
   addToHistory(exprText, state.current);
   state.previous = null;
@@ -105,7 +105,7 @@ function clear() {
 }
 
 function toggleSign() {
-  if (state.current === '0' || state.current === 'Error') return;
+  if (state.current === '0' || state.current.startsWith('Error')) return;
   state.current = state.current.startsWith('-')
     ? state.current.slice(1)
     : '-' + state.current;
