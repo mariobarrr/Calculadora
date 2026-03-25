@@ -71,6 +71,10 @@ body {
   color: #ff6b6b;
 }
 
+.display__result.placeholder {
+  min-height: 48px;
+}
+
 /* Buttons grid */
 .buttons {
   display: grid;

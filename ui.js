@@ -8,6 +8,7 @@ export function updateDisplay() {
   const isError = state.current.startsWith('Error');
   resultEl.classList.toggle('error', isError);
   resultEl.classList.toggle('small', !isError && state.current.length > 9);
+  resultEl.classList.toggle('placeholder', state.current === '');
 }
 
 export function updateExpression(text) {

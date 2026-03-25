@@ -35,14 +35,15 @@ export function inputOperator(op) {
   if (state.operator && !state.justEvaluated) {
     calculate();
   }
-  state.previous = state.current;
+  state.previous = state.current || state.previous;
+  state.current = '';
   state.operator = op;
   state.justEvaluated = false;
   state.waitingForSecond = true;
 }
 
 export function calculate() {
-  if (state.previous === null || state.operator === null) return null;
+  if (state.previous === null || state.operator === null || state.current === '') return null;
 
   const a = parseFloat(state.previous);
   const b = parseFloat(state.current);
