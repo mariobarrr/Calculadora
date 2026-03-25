@@ -8,6 +8,7 @@ const state = {
   previous: null,
   operator: null,
   justEvaluated: false,
+  waitingForSecond: false,
 };
 
 function updateDisplay() {
@@ -18,9 +19,10 @@ function updateDisplay() {
 }
 
 function inputNumber(value) {
-  if (state.justEvaluated) {
+  if (state.justEvaluated || state.waitingForSecond) {
     state.current = value;
     state.justEvaluated = false;
+    state.waitingForSecond = false;
   } else {
     state.current =
       state.current === '0' ? value : state.current + value;
@@ -29,9 +31,10 @@ function inputNumber(value) {
 }
 
 function inputDecimal() {
-  if (state.justEvaluated) {
+  if (state.justEvaluated || state.waitingForSecond) {
     state.current = '0.';
     state.justEvaluated = false;
+    state.waitingForSecond = false;
     updateDisplay();
     return;
   }
@@ -48,6 +51,7 @@ function inputOperator(op) {
   state.previous = state.current;
   state.operator = op;
   state.justEvaluated = false;
+  state.waitingForSecond = true;
 
   const symbols = { '+': '+', '-': '−', '*': '×', '/': '÷' };
   expressionEl.textContent = `${state.previous} ${symbols[op]}`;
@@ -97,6 +101,7 @@ function clear() {
   state.previous = null;
   state.operator = null;
   state.justEvaluated = false;
+  state.waitingForSecond = false;
   expressionEl.textContent = '';
   document.querySelectorAll('.btn--operator').forEach(btn =>
     btn.classList.remove('active')
