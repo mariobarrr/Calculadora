@@ -13,6 +13,9 @@ export function addEntry(expression, result, onClickResult) {
   `;
   li.addEventListener('click', () => onClickResult(result));
   historyList.appendChild(li);
+
+  const items = historyList.querySelectorAll('.history__item');
+  if (items.length > 5) items[0].remove();
 }
 
 export function initClearButton() {
