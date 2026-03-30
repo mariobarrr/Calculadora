@@ -171,7 +171,7 @@ Este proyecto se construyó usando [Claude Code](https://claude.ai/code) como co
 
 ## Estrategia de Contexto
 
-_Esta sección documenta cómo se gestiona el contexto de Claude Code en este proyecto._
+_Esta sección documenta cómo se gestiona el contexto de Claude Code en este proyecto para trabajar con eficiencia entre sesiones._
 
 ### Archivos de contexto
 
@@ -182,13 +182,47 @@ _Esta sección documenta cómo se gestiona el contexto de Claude Code en este pr
 | `docs/architecture.md` | ADRs detallados con alternativas consideradas (inglés) |
 | `CLAUDE.local.md` | Preferencias personales del desarrollador (no versionado) |
 
-### Principios
+### Flujo de trabajo entre sesiones
 
-- _Por completar_
+Cada sesión de trabajo comienza leyendo el `CLAUDE.md`. Esto permite a Claude retomar el proyecto desde cero sin perder información: conoce el estado actual de las funcionalidades, la estructura de archivos, las convenciones de código y los comandos necesarios para arrancar el proyecto.
 
-### Qué incluir / excluir del contexto
+El `CLAUDE.md` actúa como **memoria persistente entre sesiones**: aunque el contexto de la conversación se pierda al cerrar Claude Code, toda la información relevante para continuar el trabajo está documentada en ese archivo y se carga automáticamente al inicio de cada sesión.
 
-- _Por completar_
+### `/compact` vs `/clear`
+
+Claude Code ofrece dos comandos para gestionar el contexto cuando la conversación crece:
+
+| Comando | Qué hace | Cuándo usarlo |
+|---|---|---|
+| `/compact` | Resume el contexto manteniendo la información relevante del trabajo realizado | Cuando el contexto es largo pero quieres continuar la misma sesión sin perder el hilo |
+| `/clear` | Borra todo el contexto completamente | Cuando vas a empezar una tarea totalmente nueva sin relación con lo anterior |
+
+La diferencia clave: `/compact` es una **compresión** (mantiene coherencia), `/clear` es un **reset** (borrón y cuenta nueva). Usar `/clear` cuando el contexto aún es relevante significa perder el hilo de lo que se estaba construyendo y obligar a Claude a redescubrir el estado del proyecto desde los archivos.
+
+### Ejemplo concreto: uso de `/compact` en la sesión 2
+
+En la sesión 2 de este proyecto se implementaron tres funcionalidades seguidas:
+
+1. Panel de historial con las últimas 5 operaciones y entradas clicables
+2. Botones de porcentaje (`%`) y cambio de signo (`+/-`)
+3. Toggle de tema oscuro / claro
+
+Tras esas tres implementaciones, el historial de la conversación era extenso: incluía el código de cada cambio, las explicaciones, los mensajes de error encontrados y las correcciones aplicadas. En ese punto se usó `/compact` para resumir todo ese contexto y poder seguir trabajando en la misma sesión con eficiencia, sin perder la memoria de las decisiones tomadas ni el estado del código.
+
+### Qué información se prioriza en el `CLAUDE.md`
+
+Para que Claude pueda retomar el trabajo sin ambigüedades, el `CLAUDE.md` incluye:
+
+- **Estado actual:** qué funcionalidades están implementadas y cuáles faltan, para no rehacer trabajo ya hecho ni proponer cambios ya descartados.
+- **Estructura de archivos:** qué hace cada módulo y cuáles son sus responsabilidades exclusivas, para saber dónde añadir cada cambio.
+- **Convenciones de código:** qué patrones seguir (sin TypeScript, sin frameworks, `state.current` como string, sin `innerHTML` con input del usuario, etc.) para que el código generado sea coherente con el existente.
+- **Comandos útiles:** cómo arrancar el proyecto, compilarlo y previsualizarlo, para no tener que buscarlos en cada sesión.
+
+### Checkpoints mediante commits
+
+Cada commit relevante actúa como un **checkpoint** del proyecto. Si una nueva funcionalidad rompe algo o una refactorización sale mal, es posible volver a un estado estable conocido con `git checkout <hash>` o `git revert`.
+
+Esta práctica combina bien con Claude Code: al hacer un commit tras cada funcionalidad completada y verificada, se garantiza que siempre hay un punto de retorno seguro antes de pedir el siguiente cambio. El historial de commits del proyecto refleja este patrón: cada funcionalidad tiene su propio commit con un mensaje descriptivo.
 
 ---
 
