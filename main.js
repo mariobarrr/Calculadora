@@ -15,6 +15,15 @@ import { updateDisplay, updateExpression, highlightOperator, clearOperatorHighli
 
 initClearButton();
 
+const themeToggleBtn = document.getElementById('themeToggle');
+let isDark = true;
+
+themeToggleBtn.addEventListener('click', () => {
+  isDark = !isDark;
+  document.documentElement.classList.toggle('light', !isDark);
+  themeToggleBtn.textContent = isDark ? 'Modo claro' : 'Modo oscuro';
+});
+
 function handleNumber(value) {
   inputNumber(value);
   updateDisplay();
