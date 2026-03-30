@@ -8,7 +8,7 @@ Referencia rápida para cualquier instancia de Claude que trabaje en este proyec
 
 ## Descripción del proyecto
 
-**Calculadora Web** es una aplicación de calculadora con tema oscuro inspirado en iOS. Construida con HTML, CSS y JavaScript vanilla (ES6 modules) usando Vite como build tool. Sin frameworks, sin librerías de UI.
+**Calculadora Web** es una aplicación de calculadora con tema oscuro/claro inspirado en iOS. Construida con HTML, CSS y JavaScript vanilla (ES6 modules) usando Vite como build tool. Sin frameworks, sin librerías de UI.
 
 Funcionalidades implementadas:
 - Operaciones aritméticas: `+`, `-`, `*`, `/`
@@ -16,10 +16,11 @@ Funcionalidades implementadas:
 - Números decimales
 - Doble pantalla: línea de expresión (gris, pequeña) + resultado (blanco, grande)
 - Cursor parpadeante naranja animado con CSS
-- Panel de historial lateral con entradas clicables
+- Panel de historial lateral con entradas clicables (últimas 5 operaciones)
 - Operadores encadenados (calcula automáticamente si hay operador pendiente)
 - Error de división por cero mostrado en rojo
 - Soporte de teclado completo (0–9, operadores, Enter, Escape, Backspace)
+- Toggle de tema oscuro / claro (botón sobre la calculadora)
 
 ---
 
@@ -77,17 +78,17 @@ Evento (click / keydown)
 - Todas las operaciones aritméticas básicas
 - Encadenado de operaciones
 - División por cero con mensaje de error
-- Historial persistente en sesión (no en localStorage)
+- Historial de las últimas 5 operaciones, persistente en sesión (no en localStorage)
 - Teclado completo incluyendo Backspace
 - Cursor parpadeante naranja
 - Resaltado del operador activo
+- Toggle de tema oscuro / claro con CSS custom properties en `:root` y `:root.light`
 
 ### Qué falta (posibles mejoras futuras)
 
 - Persistencia del historial con `localStorage` / `sessionStorage`
 - Diseño responsive / mobile (layout actual tiene ancho fijo 320 px + 220 px)
 - Operaciones avanzadas (raíz cuadrada, potencia, trigonometría)
-- Tema claro / dark mode toggle
 - Soporte para expresiones con paréntesis
 - Tests automatizados
 
