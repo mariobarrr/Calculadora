@@ -169,6 +169,29 @@ Este proyecto se construyó usando [Claude Code](https://claude.ai/code) como co
 
 ---
 
+## Estrategia de Contexto
+
+_Esta sección documenta cómo se gestiona el contexto de Claude Code en este proyecto._
+
+### Archivos de contexto
+
+| Archivo | Propósito |
+|---|---|
+| `CLAUDE.md` | Referencia técnica principal: stack, estructura, convenciones y estado actual |
+| `docs/arquitectura.md` | Cómo están organizados los módulos y por qué |
+| `docs/architecture.md` | ADRs detallados con alternativas consideradas (inglés) |
+| `CLAUDE.local.md` | Preferencias personales del desarrollador (no versionado) |
+
+### Principios
+
+- _Por completar_
+
+### Qué incluir / excluir del contexto
+
+- _Por completar_
+
+---
+
 ## Licencia
 
 MIT
