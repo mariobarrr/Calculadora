@@ -73,18 +73,21 @@ Evento (click / keydown)
 
 ## Estado actual
 
-### Qué está hecho
+### Proyecto completo
 
-- Todas las operaciones aritméticas básicas
+El proyecto está completo con todas las funcionalidades planificadas implementadas:
+
+- Todas las operaciones aritméticas básicas (`+`, `-`, `*`, `/`)
 - Encadenado de operaciones
-- División por cero con mensaje de error
+- División por cero con mensaje de error en rojo
+- Porcentaje (`%`) y cambio de signo (`+/-`)
 - Historial de las últimas 5 operaciones, persistente en sesión (no en localStorage)
 - Teclado completo incluyendo Backspace
 - Cursor parpadeante naranja
 - Resaltado del operador activo
 - Toggle de tema oscuro / claro con CSS custom properties en `:root` y `:root.light`
 
-### Qué falta (posibles mejoras futuras)
+### Posibles mejoras futuras
 
 - Persistencia del historial con `localStorage` / `sessionStorage`
 - Diseño responsive / mobile (layout actual tiene ancho fijo 320 px + 220 px)
